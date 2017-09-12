@@ -1,0 +1,39 @@
+{
+  "name": "mobile_h5",
+  "version": "1.0.0",
+  "description": "练手小项目",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanpei2016/new_project.git"
+  },
+  "keywords": [
+    "练手小项目"
+  ],
+  "author": "yp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yanpei2016/new_project/issues"
+  },
+  "homepage": "https://github.com/yanpei2016/new_project#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^3.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-rev-append": "^0.1.8",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-webserver": "^0.9.1",
+    "jshint": "^2.9.5"
+  }
+}
