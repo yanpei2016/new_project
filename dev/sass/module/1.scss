@@ -7,6 +7,9 @@
   text-align: center;
   color: #bff;
   font-weight: 700;
+  transition: 100ms linear;
+  transform: translateX(100px);
+  background: linear-gradient(to top,#fff,#000);
 }
 
 
