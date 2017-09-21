@@ -6,7 +6,7 @@
 var gulp = require("gulp"),                     //初始化gulp
     sass = require("gulp-sass"),                //sass编译
     rename = require("gulp-rename"),            //重命名
-    minifyCss = require("gulp-minify-css"),     //css文件压缩
+    cleanCss = require("gulp-clean-css"),       //css文件压缩 gulp-minify-css已经弃用 也解决了其定位不准的问题
     autoprefixer = require("gulp-autoprefixer"),//自动补全css兼容性前缀
     sourceMaps = require("gulp-sourcemaps"),    //记录生成的scss行数 便于调试时查找样式文件
 
@@ -27,11 +27,13 @@ var path = {
     jsIn:"dev/js/*.js",
     jsOut:"assets/scripts/",
     imgIn:"dev/images/*",
-    imgOut:"assets/images/"
+    imgOut:"assets/images/",
+    htmlIn:"dev/html/*.html",
+    htmlOut:"assets/html/"
 };
 
 //监听css任务
-gulp.task("styles",["revTest"],function () {
+gulp.task("styles",function () {
         return gulp.src(path.cssIn)
         .pipe(sourceMaps.init())  //记录生成的scss行数
 
@@ -43,7 +45,7 @@ gulp.task("styles",["revTest"],function () {
             //        transform: rotate(45deg);
             remove:false //是否去掉不必要的前缀 默认：true
         }))//自动补全css兼容新前缀
-        .pipe(minifyCss()) //压缩
+        .pipe(cleanCss()) //压缩
         .pipe(rename({suffix:".min"})) //添加压缩文件的后缀名
 
         .pipe(sourceMaps.write('map'))//生成map文件
@@ -53,7 +55,7 @@ gulp.task("styles",["revTest"],function () {
 });
 
 //监听js任务
-gulp.task("scripts",["revTest"],function () {
+gulp.task("scripts",function () {
     return gulp.src(path.jsIn)
         .pipe(sourceMaps.init())
         .pipe(jshint())
@@ -67,17 +69,17 @@ gulp.task("scripts",["revTest"],function () {
 });
 
 //监听 images任务
-gulp.task("images",["revTest"],function () {
+gulp.task("images",function () {
     return gulp.src(path.imgIn)
         .pipe(gulp.dest(path.imgOut))
         .pipe(notify({message:"img task success"}))
-})
+});
 
 //监听html任务 自动添加版本号
 gulp.task("revTest",function () {
-    return gulp.src("assets/html/index.html")
+    return gulp.src(path.htmlIn)
         .pipe(rev())
-        .pipe(gulp.dest("assets/html/"))
+        .pipe(gulp.dest(path.htmlOut))
         .pipe(notify({message:"html add rev success"}))
 });
 
@@ -85,7 +87,7 @@ gulp.task("revTest",function () {
 gulp.task("watch",function () {
     gulp.watch(path.cssIn,["styles"]);
     gulp.watch(path.jsIn,["scripts"]);
-    gulp.watch("assets/html/index.html",["revTest"]);
+    gulp.watch(path.htmlIn,["revTest"]);
 });
 
 //启动静态服务器
@@ -98,22 +100,10 @@ gulp.task('serve', function() {
     gulp.watch(['assets/*', 'assets/**/*', 'assets/**/**/*'], {cwd: './'}, reload);
 });
 
-//此处 后编译的文件会直接覆盖前编译的文件  所以不需要建立clean任务
-// gulp.task("cleanCss",function () {
-//     return gulp.src(path.cssOut,{force: true})
-//         .pipe(clean())
-//         .pipe(notify({message:"css clean success"}))
-// });
-//
-// gulp.task("cleanJs",function () {
-//     return gulp.src(path.jsOut)
-//         .pipe(clean())
-//         .pipe(notify({message:"js clean success"}))
-// });
 
 //创建默认的gulp任务
 gulp.task("default",function () {
-    gulp.start("styles",'watch','serve','scripts',"images")
+    gulp.start("styles",'watch','serve','scripts',"images",'revTest')
 });
 
 
