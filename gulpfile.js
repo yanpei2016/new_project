@@ -4,7 +4,7 @@
  */
 
 var gulp = require("gulp"),                     //初始化gulp
-    sass = require("gulp-sass"),                //sass编译
+    sass = require("gulp-scss"),                //sass编译
     rename = require("gulp-rename"),            //重命名
     cleanCss = require("gulp-clean-css"),       //css文件压缩 gulp-minify-css已经弃用 也解决了其定位不准的问题
     autoprefixer = require("gulp-autoprefixer"),//自动补全css兼容性前缀
@@ -23,7 +23,7 @@ var gulp = require("gulp"),                     //初始化gulp
 
 
 var path = {
-    cssIn:["dev/sass/*.scss","dev/sass/**/*.scss"],
+    cssIn:["dev/scss/*.scss","dev/scss/**/*.scss"],
     cssOut:"assets/styles/",
     jsIn:"dev/js/*.js",
     jsOut:"assets/scripts/",
@@ -61,7 +61,7 @@ gulp.task("scripts",function () {
         .pipe(sourceMaps.init())
         .pipe(jshint())
         .pipe(jshint.reporter("default"))   //js语法校验
-        .pipe(concat("index.js"))       //合并到index.js文件里面
+        // .pipe(concat("index.js"))       //合并到index.js文件里面
         .pipe(rename({suffix:".min"}))  //添加压缩的后缀名
         .pipe(uglify())                 //压缩js文件
         .pipe(sourceMaps.write("map"))

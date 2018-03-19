@@ -1,0 +1,46 @@
+.slide{
+  &-wrap{
+    height:400px;
+    margin: 30px auto;
+    position: relative;
+    overflow: hidden;
+  }
+  &-btn{
+    position: absolute;
+    font-size: 60px;
+    color: #f00;
+    opacity: .6;
+    top:50%;
+    margin-top: -20px;
+    z-index: 2;
+    cursor: pointer;
+    &:hover{
+      opacity: 1;
+    }
+  }
+  &-prev-btn{
+    left:0;
+  }
+  &-next-btn{
+    right:0;
+  }
+  &-disable-btn{
+    opacity: .1;
+    &:hover{
+      opacity: .1;
+    }
+  }
+  &-list{
+    position: absolute;
+    top:0;
+    left:0;
+    width: auto;
+    font-size: 0;
+    transition: left  300ms linear;
+  }
+  &-item{
+    display: inline-block;
+    width: 1000px;
+    height:400px;
+  }
+}
